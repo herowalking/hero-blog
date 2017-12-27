@@ -19,7 +19,24 @@ router.get('/addArticle', function (req, res, next) {
 router.post('/addArticle', function (req, res, next) {
     articleModel.addForm(req, function (err) {
         if(err === '-1') {
-
+            res.send('资料未填写完整！');
+        } else if(err) {
+            console.log(err);
+            return;
         }
-    })
-})
+        res.redirect('/admin/articleList');
+    });
+});
+
+router.get('/delArticle', function (res, req, next) {
+    //拿到需要删除的文章ID
+});
+
+router.get('/editArticle', function (req, res, next) {
+    var aid = parseInt(req.params._id);
+    articleModel.updateArticle({_id:aid}, function () {
+        
+    });
+});
+
+module.exports = router;
