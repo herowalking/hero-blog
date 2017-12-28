@@ -46,7 +46,25 @@ module.exports = {
         });
     },
 
-    delArticle: function () {
+    delArticle: function (params, callback) {
+        Article.remove(params, function(err){
+            callback(err);
+        })
+    },
+    
+    editForm: function (req, callback) {
+        var form = new formidable.IncomingForm();
 
+        form.parse(req, function (err, fields, files) {
+            if(fields.title !== '' && fields.author !== '' && fields.type !== '' && fields.read !== '' && fields.tag !== '' && fields.content !== '') {
+                fields.updateTime = new Date();
+
+                Article.update(fields, function (err) {
+                    callback(err);
+                });
+            } else {
+                callback('-1');
+            }
+        });
     }
 }

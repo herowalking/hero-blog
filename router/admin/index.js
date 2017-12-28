@@ -4,11 +4,10 @@
 
 var express = require('express');
 var router = express.Router();
-var util = require('util');
-var formidable = require('formidable');
 
-var article = require('article');
-var articleType = require('articleType');
+
+var article = require('./article');
+var articleType = require('./articleType');
 
 router.use('/', function (req, res, next) {
     /*

@@ -30,12 +30,32 @@ router.post('/addArticle', function (req, res, next) {
 
 router.get('/delArticle', function (res, req, next) {
     //拿到需要删除的文章ID
+    var articleId = req.query._id;
+    articleModel.delArticle({_id:articleId}, function (err) {
+        if(err) {
+            console.log(err);
+            return;
+        }
+        res.send('删除成功！');
+    });
 });
 
 router.get('/editArticle', function (req, res, next) {
-    var aid = parseInt(req.params._id);
-    articleModel.updateArticle({_id:aid}, function () {
-        
+    var articleId = parseInt(req.params._id);
+    articleModel.updateArticle({_id:articleId}, function (err, art) {
+        console.log("articleModel loading...");
+        console.log(art);
+        res.render('admin/updateArticle', art);
+    });
+});
+
+router.post('/editArticle', function (req, res, next) {
+    articleModel.editForm(req, function (err) {
+        if(err) {
+            console.log(err);
+            return;
+        }
+        res.send('修改成功！');
     });
 });
 
