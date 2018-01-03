@@ -30,8 +30,30 @@ router.post('/register', function (req, res, next) {
     });
 });
 
+//登录
 router.get('/login', function (req, res, next) {
+    res.render('user/login');
+});
 
+//处理用户登录
+router.post('/login', function (req, res, next) {
+    console.log('login...');
+    userModel.queryUserInfo(req, function (findInfo) {
+        console.log('login2...');
+        console.log(findInfo);
+        console.log('==========');
+        if(findInfo === 0) {
+            res.send('请输入用户名和密码！');
+        } else if(findInfo === 1) {
+            res.send('1');
+        } else if(findInfo === 'admin') {
+            res.redirect('/admin');
+        } else if(findInfo === 'member') {
+            res.redirect('/');
+        } else if(findInfo === 2) {
+            res.send('用户名或密码错误！');
+        }
+    });
 });
 
 module.exports =  router;

@@ -6,8 +6,8 @@ var userSchema = new Schema({
     username: String,
     password: String,
     rank: Number,
-    registerTime: times,
-    updateTime: times
+    registerTime: Date,
+    updateTime: Date
 });
 
 var User = mongoose.model('User', userSchema);
